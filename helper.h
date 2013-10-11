@@ -8,7 +8,7 @@
  *
  * Prototype of helper functions required for other C files
  *
- ***************************************************************************/
+ * *************************************************************************/
 
 #ifndef HELPER_H
 #define HELPER_H
@@ -24,7 +24,7 @@
  * Stores the list of files present in direectory pointed by 'dir' 
  * in array of strings pointed by 'files'
  */
-void getFiles(char **, const char*);
+void getFiles(char ***, const char*);
 
 
 /*

@@ -19,7 +19,7 @@
  * Stores the list of files present in direectory pointed by 'dir' 
  * in array of strings pointed by 'files'
  */
-void getFiles(char *files[1024], const char* dir)
+void getFiles(char ***files, const char* dir)
 {
 	static int i;
 
@@ -63,8 +63,11 @@ void getFiles(char *files[1024], const char* dir)
 			continue;
 		}
 
+		// allocate memory to store locations of char *
+		*files = realloc(*files, (i + 20)*(sizeof(char *)));
+
 		// allocate heap memory and store location
-		files[i] = (char *)strdup(temp);
+		*(*(files + 0) + i) = (char *)strdup(temp);
 
 		// move to next location
 		i++;
@@ -74,7 +77,7 @@ void getFiles(char *files[1024], const char* dir)
 	closedir(dd);
 
 	// set NULL after last file name
-	files[i] == '\0';
+	*(*(files + 0) + i) == '\0';
 }
 
 

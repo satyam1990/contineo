@@ -36,9 +36,10 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	char *files[1024] = {0};
+	char **files = calloc(1, sizeof(char *));
+
 	// get files from the directory specified
-	getFiles(files, argv[1]);
+	getFiles(&files, argv[1]);
 	
 	// display files
 	display(files);
@@ -55,7 +56,7 @@ return 0;
  * Display's content of String array passed to it,
  * that should conatin full path to files.
  */
-void display(char *files[])
+void display(char **files)
 {
 	// Color Red
 	printf("[0;31;40m");
@@ -74,9 +75,10 @@ void display(char *files[])
 /*
  * Free's the memory utilized by the program
  */
-void cleanup(char *files[])
+void cleanup(char **files)
 {
 	// free memory utilized by files array
 	for (int i = 0; files[i]; i++)
 		free(files[i]);
+	free(files);
 }
