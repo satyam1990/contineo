@@ -66,11 +66,10 @@ void getFiles(char ***files, const char* dir)
 		}
 
 		// allocate memory to store locations of char *
-		*files = realloc(*files, (i + 2)*(sizeof(char *)));
+		*files = realloc(*files, (i + 2) * (sizeof(char *)));
 
 		// allocate heap memory and store location
-		*(*(files + 0) + i) = (char *)strdup(temp);
-
+		(*files)[i] = (char *)strdup(temp);
 		// move to next location
 		i++;
 	}
@@ -79,7 +78,7 @@ void getFiles(char ***files, const char* dir)
 	closedir(dd);
 
 	// set NULL after last file name
-	*(*(files + 0) + i) = '\0';
+	(*files)[i] = '\0';
 }
 
 

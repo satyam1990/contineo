@@ -59,7 +59,7 @@ return 0;
 void display(char **files)
 {
 	// Color Red
-	printf("[0;31;40m");
+//	printf("[0;31;40m");
 
 	// display files
 	for (int i = 0; files[i]; i++)
@@ -68,7 +68,7 @@ void display(char **files)
 	}
 
 	// turn off color
-	printf("[0;37;40m");
+//	printf("[0;37;40m");
 }
 
 
