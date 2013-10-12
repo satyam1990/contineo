@@ -48,6 +48,8 @@ void getFiles(char ***files, const char* dir)
 		if (strcmp(content->d_name, ".") == 0 || 
 			strcmp(content->d_name, "..") == 0)
 			continue;
+		/*if (content->d_name[0] == '.')
+			continue;*/
 
 		//store full file path from current directory
 		char temp[1024] = {0};
@@ -64,7 +66,7 @@ void getFiles(char ***files, const char* dir)
 		}
 
 		// allocate memory to store locations of char *
-		*files = realloc(*files, (i + 20)*(sizeof(char *)));
+		*files = realloc(*files, (i + 2)*(sizeof(char *)));
 
 		// allocate heap memory and store location
 		*(*(files + 0) + i) = (char *)strdup(temp);
@@ -77,7 +79,7 @@ void getFiles(char ***files, const char* dir)
 	closedir(dd);
 
 	// set NULL after last file name
-	*(*(files + 0) + i) == '\0';
+	*(*(files + 0) + i) = '\0';
 }
 
 
