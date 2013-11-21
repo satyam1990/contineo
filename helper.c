@@ -11,9 +11,12 @@
  * *************************************************************************/
 
 #include "helper.h"
+#include <unistd.h>
 #include <dirent.h>
 #include <stdlib.h>
+#include <fcntl.h>
 #include <sys/types.h>
+#include <sys/stat.h>
 
 /*
  * Stores the list of files present in direectory pointed by 'dir' 
@@ -87,15 +90,17 @@ void getFiles(char ***files, const char* dir)
  */
 bool isdir(const char * dir)
 {
-	DIR *temp;
-	temp = opendir(dir);
-	
-	if (temp != NULL)
-	{
-		closedir(temp);
-		return true;
-	}
+	int fd = open(dir, O_RDONLY);
 
+	// stores file info
+	struct stat buf;
+
+	// get file info
+	if (fstat(fd, &buf) < 0)
+		printf("Unable to get file statistics\n");
+
+	if (S_ISDIR(buf.st_mode)) 
+		return true;
 return false;
 }
 
