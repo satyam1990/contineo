@@ -51,8 +51,8 @@ void getFiles(char ***files, const char* dir)
 		if (strcmp(content->d_name, ".") == 0 || 
 			strcmp(content->d_name, "..") == 0)
 			continue;
-		/*if (content->d_name[0] == '.')
-			continue;*/
+		if (content->d_name[0] == '.')
+			continue;
 
 		//store full file path from current directory
 		char temp[1024] = {0};
@@ -65,7 +65,6 @@ void getFiles(char ***files, const char* dir)
 		{
 			// read this new directory found
 			getFiles(files, temp);
-			continue;
 		}
 
 		// allocate memory to store locations of char *
@@ -90,7 +89,7 @@ void getFiles(char ***files, const char* dir)
  */
 bool isdir(const char * dir)
 {
-	int fd = open(dir, O_RDONLY);
+	int fd = open(dir, O_RDONLY | O_NONBLOCK);
 
 	// stores file info
 	struct stat buf;
@@ -99,8 +98,12 @@ bool isdir(const char * dir)
 	if (fstat(fd, &buf) < 0)
 		printf("Unable to get file statistics\n");
 
+	// close the fd as we got stats by now
+	close(fd);
+
 	if (S_ISDIR(buf.st_mode)) 
 		return true;
+
 return false;
 }
 

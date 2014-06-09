@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 
 	// get files from the directory specified
 	getFiles(&files, argv[1]);
-	
+
 	// display files
 	display(files);
 
