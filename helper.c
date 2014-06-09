@@ -65,6 +65,7 @@ void getFiles(char ***files, const char* dir)
 		{
 			// read this new directory found
 			getFiles(files, temp);
+			continue; // don't include directories in list
 		}
 
 		// allocate memory to store locations of char *
