@@ -59,7 +59,7 @@ void getFiles(char ***files, const char* dir)
 
 		// make full path
 		makepath(temp, dir, content->d_name);
-
+	
 		// recall itself if another directory found
 		if (isdir(temp))
 		{
@@ -96,14 +96,13 @@ bool isdir(const char * dir)
 
 	// get file info
 	if (fstat(fd, &buf) < 0)
-		printf("Unable to get file statistics\n");
+		return false; // for files whose stats can't be get mostly due to no permissions.
 
 	// close the fd as we got stats by now
 	close(fd);
 
 	if (S_ISDIR(buf.st_mode)) 
 		return true;
-
 return false;
 }
 
